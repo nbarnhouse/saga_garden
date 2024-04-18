@@ -7,10 +7,13 @@ router.get('/', (req, res) => {
   const queryText = `
     SELECT "id", "name" FROM "plants";
   `;
-  pool.query(queryText)
-    .then((result) => { res.send(result.rows); })
-    .catch((err) => {
-      console.log('Error in GET /api/plants', err);
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log('error in GET /api/plants', error);
       res.sendStatus(500);
     });
 });
@@ -20,10 +23,13 @@ router.get('/:id', (req, res) => {
     SELECT * FROM "plants"
       WHERE id=$1;
   `;
-  pool.query(queryText, [req.params.id])
-    .then((result) => { res.send(result.rows); })
-    .catch((err) => {
-      console.log('Error in GET /api/plants/:id', err);
+  pool
+    .query(queryText, [req.params.id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log('error in GET /api/plants/:id', error);
       res.sendStatus(500);
     });
 });
@@ -45,10 +51,13 @@ router.post('/', (req, res) => {
     newPlant.subfamily,
     newPlant.genus,
   ];
-  pool.query(queryText, queryValues)
-    .then((result) => { res.sendStatus(201); })
-    .catch((err) => {
-      console.log('Error in POST /api/plants', err);
+  pool
+    .query(queryText, queryValues)
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error in POST /api/plants', error);
       res.sendStatus(500);
     });
 });
@@ -81,10 +90,13 @@ router.put('/:id', (req, res) => {
     updatedPlant.id,
   ];
 
-  pool.query(queryText, queryValues)
-    .then((result) => { res.sendStatus(200); })
-    .catch((err) => {
-      console.log('Error in PUT /api/plants/:id', err);
+  pool
+    .query(queryText, queryValues)
+    .then((result) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('error in PUT /api/plants/:id', error);
       res.sendStatus(500);
     });
 });
@@ -94,10 +106,13 @@ router.delete('/:id', (req, res) => {
     DELETE FROM "plants" 
       WHERE id=$1
   `;
-  pool.query(queryText, [req.params.id])
-    .then(() => { res.sendStatus(200); })
-    .catch((err) => {
-      console.log('Error in DELETE /api/plants/:id', err);
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('error in DELETE /api/plants/:id', error);
       res.sendStatus(500);
     });
 });
