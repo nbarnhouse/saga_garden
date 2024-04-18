@@ -3,9 +3,10 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
+//GET all plant names
 router.get('/', (req, res) => {
   const queryText = `
-    SELECT "id", "name" FROM "plants";
+    SELECT "name" FROM "plants";
   `;
   pool
     .query(queryText)
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
     });
 });
 
+//GET specific plant details
 router.get('/:id', (req, res) => {
   const queryText = `
     SELECT * FROM "plants"
@@ -34,6 +36,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//CREATE new plant details
 router.post('/', (req, res) => {
   const newPlant = req.body;
   const queryText = `
@@ -62,6 +65,7 @@ router.post('/', (req, res) => {
     });
 });
 
+//UPDATE plant details
 router.put('/:id', (req, res) => {
   const updatedPlant = req.body;
 
@@ -101,6 +105,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+//DELETE plant
 router.delete('/:id', (req, res) => {
   const queryText = `
     DELETE FROM "plants" 
