@@ -1,5 +1,7 @@
 import React from 'react';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Garden from '../Garden/Garden.jsx';
+import GardenDetails from '../GardenDetails/GardenDetails.jsx';
 
 import './App.css';
 
@@ -9,8 +11,16 @@ function App() {
       <header className="App-header">
         <h1>Welcome to Your Garden!</h1>
       </header>
-      <Garden />
-      <img></img>
+
+      <Router>
+        <Route exact path="/">
+          <Garden />
+        </Route>
+
+        <Route exact path="/plants">
+          <GardenDetails />
+        </Route>
+      </Router>
     </div>
   );
 }
