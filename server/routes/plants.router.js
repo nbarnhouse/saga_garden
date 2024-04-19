@@ -6,7 +6,7 @@ const router = express.Router();
 //GET all plant names
 router.get('/', (req, res) => {
   const queryText = `
-    SELECT "name" FROM "plants";
+    SELECT "id", "name" FROM "plants";
   `;
   pool
     .query(queryText)
@@ -36,8 +36,29 @@ router.get('/:id', (req, res) => {
     });
 });
 
-//CREATE new plant details
+//CREATE new plant
 router.post('/', (req, res) => {
+  const newPlant = req.body;
+  const queryText = `
+    INSERT INTO "plants"
+      ("name")
+      VALUES
+      ($1);
+  `;
+  const queryValues = [newPlant.name];
+  pool
+    .query(queryText, queryValues)
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error in POST /api/plants', error);
+      res.sendStatus(500);
+    });
+});
+
+//CREATE new plant details
+router.post('/all', (req, res) => {
   const newPlant = req.body;
   const queryText = `
     INSERT INTO "plants"
