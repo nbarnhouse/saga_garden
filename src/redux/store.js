@@ -27,7 +27,7 @@ const sagaMiddleware = createSagaMiddleware();
 //SAGA generator function
 function* viewFlowerSaga() {
   try {
-    console.log('Running FlowerSaga');
+    console.log('Running viewFlowerSaga');
     const flowerResponse = yield axios.get('/api/plants');
 
     yield put({ type: 'SET_PLANT', payload: flowerResponse.data });
@@ -38,10 +38,10 @@ function* viewFlowerSaga() {
 
 function* addFlowerSaga(action) {
   try {
-    console.log('Running FlowerSaga');
+    console.log('Running addFlowerSaga');
     const flowerResponse = yield axios.post(`/api/plants`, action.payload);
 
-    yield put({ type: 'SET_PLANT', payload: flowerResponse.data });
+    yield put({ type: 'GET_PLANT', payload: flowerResponse.data });
   } catch (error) {
     console.log('Flower GET request failed', error);
   }

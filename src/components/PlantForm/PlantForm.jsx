@@ -4,18 +4,20 @@ import { useDispatch } from 'react-redux';
 const PlantForm = () => {
   const dispatch = useDispatch();
 
-  let [newPlant, setPlant] = useState('');
+  let [name, setName] = useState('');
 
   const addNewPlant = (event) => {
     event.preventDefault();
+    console.log('Plant Name:', name);
+
     dispatch({
       type: 'POST_PLANT',
       payload: {
-        newPlant: newPlant,
+        name: name,
       },
     });
 
-    setPlant('');
+    setName('');
   };
   return (
     <div>
@@ -23,8 +25,8 @@ const PlantForm = () => {
       <form onSubmit={addNewPlant}>
         <input
           type="text"
-          value={newPlant}
-          onChange={(event) => setPlant(event.target.value)}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
         />
         <input type="submit" value="Add New Plant" />
       </form>
